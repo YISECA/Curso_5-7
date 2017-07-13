@@ -33,7 +33,7 @@ class MainController extends Controller {
 
   		
 
-  		$data = ['actividades' => Actividad::get(),'localidades' => Localidad::get()];
+  		$data = ['localidades' => Localidad::get()];
 		return view('welcome', $data);
 
 

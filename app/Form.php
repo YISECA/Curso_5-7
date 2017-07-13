@@ -6,18 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 class Form extends Model
 
 {    //
-  protected $table = 'inscripciones_2017';
+  protected $table = 'natacion_5_7_agosto';
   protected $primaryKey = 'id';
-  protected $fillable = ['localidad','actividad'];
+  protected $fillable = ['localidad'];
 
   public function localidades()
    {
        return $this->belongsTo('App\Localidad','localidad');
-   }
-
-   public function actividades()
-   {
-       return $this->belongsTo('App\Actividad','actividad');
    }
 }
 

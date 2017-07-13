@@ -37,7 +37,7 @@ class FormController extends BaseController
 
     public function listar_datos(){
 
-    $acceso = Form::with('localidades','actividades')->whereYear('created_at', '=', date('Y'))->get(); 
+    $acceso = Form::with('localidades')->whereYear('created_at', '=', date('Y'))->get(); 
 
 
     $tabla='<table id="lista">
@@ -102,28 +102,37 @@ public function logear(Request $request){
 
 //insertar
 
-public function insertar(Request $request){
+public function insertar(Request $request)
 
-      $post = $request->input();
-      $formulario = new Form([]);
+    {
 
-        //envio de correo
+     $post = $request->input();
+     $usuario = Form::where('cedula', $request->input('cedula'))->first(); 
+     if (!empty($usuario)) { return view('error',['error' => 'Este usuario ya fue registrado!'] ); exit(); 
+    }
+     $formulario = new Form([]);
 
-      if($this->inscritos()<=50){
+      //envio de correo
 
+     if($this->inscritos()<=800)
 
-      $this->store($formulario, $request->input());
+     {
 
-      $id = $formulario->id;
+        $formulario = $this->store($formulario, $request);
+
+        //$this->store($formulario, $request->input());
+        
+        Mail::send('email', ['user' => $request->input('mail'),'formulario' => $formulario], function ($m) use ($request) 
+        {
+            $m->from('no-reply@idrd.gov.co', 'Registro Exitoso a la Ecotravesía Cerros Orientales');
+            $m->to($request->input('mail'), $request->input('primer_nombre'))->subject('Registro Exitoso a la Ecotravesía cerros orientales!');
+        });
 
       }else{
-      return view('error', ['error' => 'Lo sentimos el limite de inscritos fue superado!']);
-
+        return view('error', ['error' => 'Lo sentimos el limite de inscritos fue superado!']);
       }
-        //envio de correo
-        return view('error', ['error' => 'Registro exitoso']);
+        return view('descarga');
     }
-
 
 
     //fin insertar
@@ -141,20 +150,27 @@ public function insertar(Request $request){
     private function store($formulario, $input)
 
     {
-        $formulario['actividad'] = $input['actividad'];
-        $formulario['tipo_actividad'] = $input['tipo_actividad'];
-        $formulario['hora'] = $input['hora'];
-        $formulario['nombre_coordinador'] = $input['nombre_coordinador'];
-        $formulario['telefono'] = $input['telefono'];
-        $formulario['entidad'] = $input['entidad'];
-        $formulario['sector'] = $input['sector'];
-        $formulario['localidad'] = $input['localidad'];
+        $formulario['nombre_acudiente'] = $input['nombre_acudiente'];
+        $formulario['cedula_acudiente'] = $input['cedula_acudiente'];
+        $formulario['ocupacion'] = $input['ocupacion'];
+        $formulario['mail'] = $input['mail'];
         $formulario['direccion'] = $input['direccion'];
-        $formulario['hombres'] = $input['hombres'];
-        $formulario['mujeres'] = $input['mujeres'];
-         $formulario['observaciones'] = $input['observaciones'];
+        $formulario['telefono'] = $input['telefono'];
+        $formulario['localidad'] = $input['localidad'];
+        $formulario['nombre_nino'] = $input['nombre_nino'];
+        $formulario['apellido_nino'] = $input['apellido_nino'];
+        $formulario['cedula'] = $input['cedula'];
+        $formulario['genero'] = $input['genero'];
+        $formulario['fecha_nacimiento'] = $input['fecha_nacimiento'];
+        $formulario['edad'] = $input['edad'];
+        $formulario['direccion_nino'] = $input['direccion_nino'];
+        $formulario['telefono_nino'] = $input['telefono_nino'];
+        $formulario['eps'] = $input['eps'];
+        $formulario['institucion'] = $input['institucion'];
+        $formulario['sector_colegio'] = $input['sector_colegio'];
+        $formulario['curso'] = $input['curso'];
+        $formulario['horario'] = $input['horario'];
         $formulario->save();
-
 
         return $formulario;
 

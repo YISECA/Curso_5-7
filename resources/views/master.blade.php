@@ -70,7 +70,7 @@
 
 
 
-      <title>DÍA DEL DESAFÍO 2017</title>
+      <title>CURSOS DE NATACIÓN - CASB</title>
 
   </head>
 
@@ -104,11 +104,11 @@
 
             <ul class="nav navbar-nav">
 
-               <li><a href="cerrar" id="a-registro">Inicio</a></li>
+               <li><a href="cerrar" id="a-registro">Resgitrarse</a></li>
 
-              <li><a href="registro" id="a-registro">Registrarse</a></li>
+              <!--<li><a href="registro" id="a-registro">Registrarse</a></li>-->
 
-              <!--<li><a href="descarga" id="a-descarga">Descargar Carnet</a></li>-->
+              <li><a href="descarga" id="a-descarga">Descargar Comprobante Inscripción</a></li>
 
               <!--<li><a href="login" id="a-login" >Iniciar sesion</a></li>-->
 
@@ -154,7 +154,7 @@
 
                 <h1><font size="6" face="Comic Sans MS,arial,verdana">IDRD</font></h1>
 
-                <center<p class="lead"><h1><font size="6" face="Comic Sans MS,arial,verdana">DÍA DEL DESAFÍO 2017</font></h1></p>
+                <center<p class="lead"><h1><font size="5" face="Comic Sans MS,arial,verdana">ESCUELA DEPORTIVA DE NATACIÓN COMPLEJO ACUÁTICO SIMÓN BOLIVAR – IDRD 2017</font></h1></p>
 
               </div>
 
